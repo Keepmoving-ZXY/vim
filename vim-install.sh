@@ -4,9 +4,9 @@ sudo apt-get install zsh
 sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 git clone https://github.com/dracula/zsh.git
 mv zsh .zsh_theme
-ln -s .zsh_theme/dracula.zsh-theme /home/zxy/.oh-my-zsh/themes/dracula.zsh-theme
+cp /home/zxy/.zsh_theme/dracula.zsh-theme /home/zxy/.oh-my-zsh/themes/dracula.zsh-theme
 sed -i 's/ZSH_THEME="robbyrussell"//g' ~/.zshrc
-echo "ZSH_THEME="dracula"" >> ~/.zshrc
+echo "ZSH_THEME=\"dracula\"">> ~/.zshrc
 
 # install vim dependency
 sudo apt install libncurses5-dev libgnome2-dev libgnomeui-dev \
