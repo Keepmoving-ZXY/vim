@@ -38,15 +38,6 @@ set nofoldenable
 "
 " set foldmethod=syntax
 
-nmap <C-g> :cs find g <C-R>=expand("<cword>")<CR><CR>
-nmap <C-c> :cs find c <C-R>=expand("<cword>")<CR><CR>
-nmap <C-t> :cs find t <C-R>=expand("<cword>")<CR><CR>
-nmap <C-e> :cs find e <C-R>=expand("<cword>")<CR><CR>
-nmap <C-h> :cs find f <C-R>=expand("<cfile>")<CR><CR>
-nmap <F8> :!gtags <CR><CR>
-
-nmap <C-i> :vsp<CR>:<ESC><C-w>l
-
 "configure of PaperColor"
 let g:PaperColor_Theme_Options = {
             \     'cpp': {
@@ -58,59 +49,28 @@ let g:PaperColor_Theme_Options = {
             \   }
 
 filetype off                    " required!
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+call plug#begin('~/.vim/autoload')
 
-"let Vundle manage Vundle
-Bundle 'gmarik/vundle'
-Bundle 'majutsushi/tagbar'
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'DoxygenToolkit.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'NLKNguyen/papercolor-theme'
-Bundle 'Yggdroot/LeaderF'
-Bundle 'Yggdroot/indentLine'
-Bundle 'Shougo/deol.nvim'
-" Bundle 'davidhalter/jedi-vim'
+"let Vundle manage Vundle"
+Plug 'gmarik/vundle'
+Plug 'majutsushi/tagbar'
+Plug 'Valloric/YouCompleteMe'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'Yggdroot/LeaderF'
+Plug 'Yggdroot/indentLine'
+Plug 'ludovicchabant/vim-gutentags'
 
-"unite"
-" let g:unite_source_history_yank_enable = 1
-
-" call unite#filters#matcher_default#use(['matcher_fuzzy'])
-" call unite#filters#sorter_default#use(['sorter_rank'])
-" nnoremap <C-l> :<C-u>Unite -no-split -buffer-name=lines -start-insert line<cr>
-" " nnoremap <leader>f :<C-u>Unite -no-split -buffer-name=files -start-insert file_rec/async<cr>
-" autocmd FileType unite call s:unite_settings()
-" function! s:unite_settings()
-    " let b:SuperTabDisabled=1
-    " imap <buffer> <C-j>   <Plug>(unite_select_next_line)
-    " imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
-" endfunction
 
 "indent line"
 let g:indentLine_enabled = 1
-
-" cscope
-set cscopetag
-set cscopeprg='gtags-cscope'
-let GtagsCscope_Auto_Update = 0
-let GtagsCscope_Auto_Load = 1
-let CtagsCscope_Auto_Map = 1
-let GtagsCscope_Quiet = 1
-
-"content of make_file_list.sh is:"
-"find source_code_path -path \"dictionary_ignore\" -prune -o -type f -print > /tmp/gtags.files"
-"this script generate a file list with ignore files in specific dictionary,"
-"and file list will be used by gtags"
-nmap <F7> :!make_file_list.sh && gtags -f /tmp/gtags.files & <CR><CR>
-nmap <F8> :!gtags & <CR><CR>
 
 "configure of nerdcommenter"
 let g:NERDSpaceDelims=1
 let g:NERDAltDelims_c = 1
 
-"configure of tagbar"
+"tagbar"
 nmap <F9> :TagbarToggle<CR>
 let g:tagbar_left = 0
 let g:tagbar_width = 60
@@ -126,7 +86,7 @@ let g:tagbar_type_ruby = {
     \ ]
     \ }
 
-"configure of NERDTree"
+"NERDTree"
 nmap <leader>f :NERDTreeToggle<CR>
 let NERDTreeWinPos='left'
 let NERDTreeShowLineNumbers=1
@@ -141,7 +101,7 @@ let NERDTreeStatusline=1
 let g:NERDTreeDirArrowExpandable = '*'
 let g:NERDTreeDirArrowCollapsible = '*'
 
-"configure of YouCompleteMe"
+"YouCompleteMe"
 set completeopt=longest,menu
 let g:ycm_min_num_of_chars_for_completion=2 
 let g:ycm_complete_in_strings = 1
@@ -160,7 +120,7 @@ let g:ycm_error_symbol = '>>'
 let g:ycm_warning_symbol = '>>'
 nmap <F4> :YcmDiags<CR>
 
-"config of leaderf"
+"leaderf"
 nmap <C-l> :LeaderfLine<CR>
 nmap <C-r> :LeaderfFile /home/zxy/sflagent_c7/branches/sflagent_lenovo_dongde_v0<CR>
 nmap <C-f> :LeaderfFile<CR>
@@ -168,9 +128,15 @@ let g:Lf_WildIgnore = {
             \ 'dir': ['.svn','.git','.hg','build'],
             \ 'file': ['.o','.cmd','.a']
             \}
+"vim-gutentags"
+let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+  
+let g:gutentags_ctags_tagfile = '.tags'
+   
+let s:vim_tags = expand('~/.cache/tags')
+let g:gutentags_cache_dir = s:vim_tags
+let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 
-"Deol.vim"
-nmap <leader>s :Deol<CR>
-nmap <leader>q :q<CR>
-
-filetype plugin indent on
+call plug#end()
