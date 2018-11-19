@@ -1,12 +1,8 @@
 # install oh-my-zsh and dracula theme
 cd ~ 
-sudo apt-get install zsh
-sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
-git clone https://github.com/dracula/zsh.git
-mv zsh .zsh_theme
-cp /home/zxy/.zsh_theme/dracula.zsh-theme /home/zxy/.oh-my-zsh/themes/dracula.zsh-theme
-sed -i 's/ZSH_THEME="robbyrussell"//g' ~/.zshrc
-echo "ZSH_THEME=\"dracula\"">> ~/.zshrc
+sudo apt-get install curl
+sudo apt-get install automake
+sudo apt-get install cmake
 
 # install vim dependency
 sudo apt install libncurses5-dev libgnome2-dev libgnomeui-dev \
@@ -31,8 +27,10 @@ cd vim
 	--prefix=/home/zxy/.local
 
 make VIMRUNTIMEDIR=/home/zxy/.local/share/vim/vim81
+make install
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 	    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
 # install vim colortheme
 mkdir ~/.vim
 git clone https://github.com/NLKNguyen/papercolor-theme.git
@@ -59,6 +57,7 @@ cp .ycm_extra_conf.py ~
 cd ~
 
 # install plugin
+alias vim='~/.local/bin/vim'
 echo "please run :PlugInstall in vim"
 read -p "PRESS any key to open vim" tmp
 vim
@@ -67,3 +66,10 @@ vim
 cd ~/.vim/autoload/YouCompleteMe
 python install.py --clang-completer
 cd ~
+
+# install oh-my-zsh
+sudo apt-get remove zsh
+sudo apt-get install zsh
+rm -rf ~/.oh-my-zsh
+sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+rm -rf ./vim ./ctags
