@@ -15,7 +15,7 @@ set autoindent
 set history=50      " keep 50 lines of command line history
 set autochdir
 set nocompatible    " Use Vim defaults (much better!)
-set shiftwidth=4
+set shiftwidth=2
 set background=dark
 set viminfo='20,\"50    " read/write a .viminfo file, don't store more
 colorscheme PaperColor 
@@ -23,10 +23,10 @@ set bs=indent,eol,start     " allow backspacing over everything in insert mode
 set statusline=[%F]\ [%{&ff}]
 
 set expandtab
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set shiftwidth=2
 set laststatus=2
 
 set wrap
