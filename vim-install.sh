@@ -1,11 +1,10 @@
-# install oh-my-zsh and dracula theme
 cd ~ 
-sudo apt-get install curl
-sudo apt-get install automake
-sudo apt-get install cmake
+sudo apt-get update
+sudo apt-get install -y bc curl automake cmake
 
 # install vim dependency
-sudo apt install libncurses5-dev libgnome2-dev libgnomeui-dev \
+sudo apt-get install -y libcurl4-openssl-dev 
+sudo apt install -y libncurses5-dev libgnome2-dev libgnomeui-dev \
 	libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
 	libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev \
 	python3-dev ruby-dev lua5.1 liblua5.1-dev libperl-dev git
@@ -44,9 +43,9 @@ cd ~
 git clone https://github.com/universal-ctags/ctags.git
 cd ctags
 sh autogen.sh
-./configure --prefix=/home/zxy/.local
+./configure
 make 
-make install
+sudo make install
 
 # get newest vimrc
 cd /tmp
@@ -69,7 +68,7 @@ cd ~
 
 # install oh-my-zsh
 sudo apt-get remove zsh
-sudo apt-get install zsh
+sudo apt-get -y install zsh
 rm -rf ~/.oh-my-zsh
 sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 rm -rf ./vim ./ctags
