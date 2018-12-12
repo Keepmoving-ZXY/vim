@@ -57,9 +57,7 @@ cd ~
 
 # install plugin
 alias vim='~/.local/bin/vim'
-echo "please run :PlugInstall in vim"
-read -p "PRESS any key to open vim" tmp
-vim
+vim -c PlugInstall -c q -c q
 
 # compile ycm.core
 cd ~/.vim/autoload/YouCompleteMe
