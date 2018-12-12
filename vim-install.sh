@@ -65,8 +65,9 @@ python install.py --clang-completer
 cd ~
 
 # install oh-my-zsh
+rm -rf vim 
+rm -rf ctags
 sudo apt-get remove zsh
 sudo apt-get -y install zsh
 rm -rf ~/.oh-my-zsh
 sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
-rm -rf ./vim ./ctags
