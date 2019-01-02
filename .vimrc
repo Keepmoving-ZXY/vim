@@ -3,19 +3,16 @@ if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
 endif
 
 syntax on
-set ts=4
 set so=7
 set cc=80
 set ruler       " show the cursor position all the time
 set number
 set cindent
 set t_Co=256
-set expandtab
 set autoindent
 set history=50      " keep 50 lines of command line history
 set autochdir
 set nocompatible    " Use Vim defaults (much better!)
-set shiftwidth=2
 set background=dark
 set viminfo='20,\"50    " read/write a .viminfo file, don't store more
 colorscheme PaperColor 
@@ -61,7 +58,7 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'Yggdroot/LeaderF'
 Plug 'Yggdroot/indentLine'
 Plug 'ludovicchabant/vim-gutentags'
-
+Plug 'Chiel92/vim-autoformat'
 
 "indent line"
 let g:indentLine_enabled = 1
@@ -138,5 +135,8 @@ let g:gutentags_cache_dir = s:vim_tags
 let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+
+"vim-autoformat"
+au BufWrite *.py :Autoformat
 
 call plug#end()
