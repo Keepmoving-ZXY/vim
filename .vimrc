@@ -7,9 +7,7 @@ set so=7
 set cc=80
 set ruler       " show the cursor position all the time
 set number
-set cindent
 set t_Co=256
-set autoindent
 set history=50      " keep 50 lines of command line history
 set autochdir
 set nocompatible    " Use Vim defaults (much better!)
@@ -58,7 +56,8 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'Yggdroot/LeaderF'
 Plug 'Yggdroot/indentLine'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'Chiel92/vim-autoformat'
+Plug 'Raimondi/delimitMate'
+
 
 "indent line"
 let g:indentLine_enabled = 1
@@ -135,8 +134,5 @@ let g:gutentags_cache_dir = s:vim_tags
 let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-
-"vim-autoformat"
-au BufWrite *.py :Autoformat
 
 call plug#end()
