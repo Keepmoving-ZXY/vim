@@ -119,7 +119,7 @@ nmap <F4> :YcmDiags<CR>
 "leaderf"
 nmap <C-l> :LeaderfLine<CR>
 nmap <C-r> :LeaderfFile /home/zxy/sflagent_c7/branches/sflagent_lenovo_dongde_v0<CR>
-nmap <C-f> :LeaderfFile<CR>
+nmap <C-f> :LeaderfFunction<CR>
 let g:Lf_WildIgnore = {
             \ 'dir': ['.svn','.git','.hg','build'],
             \ 'file': ['.o','.cmd','.a']
