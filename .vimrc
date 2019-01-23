@@ -3,6 +3,7 @@ if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
 endif
 
 syntax on
+
 set so=7
 set cc=80
 set ruler       " show the cursor position all the time
@@ -17,12 +18,8 @@ colorscheme PaperColor
 set bs=indent,eol,start     " allow backspacing over everything in insert mode
 set statusline=[%F]\ [%{&ff}]
 
-set expandtab
 set tabstop=2
-set shiftwidth=2
 set softtabstop=2
-set shiftwidth=2
-set laststatus=2
 
 set wrap
 set nohlsearch
@@ -47,7 +44,6 @@ filetype off                    " required!
 call plug#begin('~/.vim/autoload')
 
 "let Vundle manage Vundle"
-Plug 'gmarik/vundle'
 Plug 'majutsushi/tagbar'
 Plug 'Valloric/YouCompleteMe'
 Plug 'scrooloose/nerdtree'
@@ -137,3 +133,4 @@ let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 
 call plug#end()
+autocmd FileType python setlocal ts=2 sw=2 sts=0 et
