@@ -67,4 +67,5 @@ cd ~
 rm -rf vim 
 rm -rf ctags
 echo "alias vim=\"/home/zxy/.local/bin/vim\"" >> /home/zxy/.zshrc
+echo "export PATH=/home/zxy/.local/bin:\$PATH" >> /home/zxy/.zshrc
 echo "Finish"
