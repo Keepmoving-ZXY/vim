@@ -117,8 +117,10 @@ let g:ycm_warning_symbol = '>>'
 nmap <F4> :YcmDiags<CR>
 
 "leaderf"
-nmap <C-f> :LeaderfFile<CR>
-nmap <C-l> :LeaderfFunction<CR>
+nmap <leader>f :LeaderfFile<CR>
+nmap <C-f> :LeaderfFunction<CR>
+nmap <C-l> :LeaderfLine<CR>
+
 let g:Lf_WildIgnore = {
             \ 'dir': ['.svn','.git','.hg','build'],
             \ 'file': ['.o','.cmd','.a']
