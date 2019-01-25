@@ -26,6 +26,8 @@ set wrap
 set nohlsearch
 set nofoldenable
 
+nmap <C-i> :vsp<CR>:LeaderfFile<CR>
+
 "
 " this will lead to vim too slow 
 "
