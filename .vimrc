@@ -18,6 +18,7 @@ colorscheme PaperColor
 set bs=indent,eol,start     " allow backspacing over everything in insert mode
 set statusline=[%F]\ [%{&ff}]
 
+set laststatus=2
 set tabstop=2
 set softtabstop=2
 
@@ -43,7 +44,6 @@ let g:PaperColor_Theme_Options = {
 filetype off                    " required!
 call plug#begin('~/.vim/autoload')
 
-"let Vundle manage Vundle"
 Plug 'majutsushi/tagbar'
 Plug 'Valloric/YouCompleteMe'
 Plug 'scrooloose/nerdtree'
@@ -53,7 +53,7 @@ Plug 'Yggdroot/LeaderF'
 Plug 'Yggdroot/indentLine'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'Raimondi/delimitMate'
-
+Plug 'Chiel92/vim-autoformat'
 
 "indent line"
 let g:indentLine_enabled = 1
@@ -133,4 +133,6 @@ let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 
 call plug#end()
+
+"new line in python code has 2 blanks"
 autocmd FileType python setlocal ts=2 sw=2 sts=0 et
