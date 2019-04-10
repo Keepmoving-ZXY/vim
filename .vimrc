@@ -97,7 +97,9 @@ let g:NERDTreeDirArrowCollapsible = '*'
 
 "YouCompleteMe"
 set completeopt=longest,menu
-let g:ycm_min_num_of_chars_for_completion=2 
+let g:ycm_collect_identifiers_from_tags_files=1
+let g:ycm_show_diagnostics_ui=0
+let g:ycm_min_num_of_chars_for_completion=3 
 let g:ycm_complete_in_strings = 1
 let g:ycm_key_invoke_completion = '<C-p>'
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
@@ -123,6 +125,7 @@ let g:Lf_WildIgnore = {
             \ 'dir': ['.svn','.git','.hg','build'],
             \ 'file': ['.o','.cmd','.a']
             \}
+
 "vim-gutentags"
 let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
   
@@ -133,6 +136,8 @@ let g:gutentags_cache_dir = s:vim_tags
 let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+"map ctag navigate key"
+map <C-g> <C-]>
 
 call plug#end()
 
