@@ -142,4 +142,4 @@ map <C-g> <C-]>
 call plug#end()
 
 "new line in python code has 2 blanks"
-autocmd FileType python setlocal ts=2 sw=2 sts=0 et
+autocmd FileType python setlocal ts=4 sw=4 sts=0 et
