@@ -19,14 +19,17 @@ set bs=indent,eol,start     " allow backspacing over everything in insert mode
 set statusline=[%F]\ [%{&ff}]
 
 set laststatus=2
-set tabstop=2
+set expandtab
+set shiftwidth=2
 set softtabstop=2
 
 set wrap
+set autoindent
 set nohlsearch
 set nofoldenable
 
 nmap <C-i> :vsp<CR><C-w>l<leader>f
+nmap <leader>tf :!sh /root/.scripts/tensorflow.sh<CR><CR>
 
 "
 " this will lead to vim too slow 
@@ -120,6 +123,7 @@ nmap <F4> :YcmDiags<CR>
 nmap <leader>f :LeaderfFile<CR>
 nmap <C-f> :LeaderfFunction<CR>
 nmap <C-l> :LeaderfLine<CR>
+nmap <C-r> :LeaderfFile /root/work/tensorflow<CR>
 
 let g:Lf_WildIgnore = {
             \ 'dir': ['.svn','.git','.hg','build'],
@@ -127,9 +131,8 @@ let g:Lf_WildIgnore = {
             \}
 
 "vim-gutentags"
-let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
-  
 let g:gutentags_ctags_tagfile = '.tags'
+let g:gutentags_project_root = ['.root', '.svn', '.git']
    
 let s:vim_tags = expand('~/.cache/tags')
 let g:gutentags_cache_dir = s:vim_tags
@@ -139,7 +142,11 @@ let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 "map ctag navigate key"
 map <C-g> <C-]>
 
-call plug#end()
+"vim autoformat"
+" ensure that you have installed clang-format and auto-pep8
+noremap <F4> :Autoformat<CR>                                                       
+let g:autoformat_autoindent = 0                                                    
+let g:autoformat_retab = 0                                                         
+let g:autoformat_remove_trailing_spaces = 0
 
-"new line in python code has 2 blanks"
-autocmd FileType python setlocal ts=4 sw=4 sts=0 et
+call plug#end()
