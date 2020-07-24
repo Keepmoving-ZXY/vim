@@ -29,7 +29,9 @@ set nohlsearch
 set nofoldenable
 
 nmap <C-i> :vsp<CR><C-w>l<leader>f
-nmap <leader>tf :!sh /root/.scripts/tensorflow.sh<CR><CR>
+nmap <C-t> :tabedit<CR>
+nmap <C-n> :tabn<CR>
+nmap <C-p> :tabp<CR>
 
 "
 " this will lead to vim too slow 
@@ -57,7 +59,6 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'Yggdroot/LeaderF'
 Plug 'Yggdroot/indentLine'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'Raimondi/delimitMate'
 Plug 'Chiel92/vim-autoformat'
 
 "indent line"
@@ -123,7 +124,7 @@ nmap <F4> :YcmDiags<CR>
 nmap <leader>f :LeaderfFile<CR>
 nmap <C-f> :LeaderfFunction<CR>
 nmap <C-l> :LeaderfLine<CR>
-nmap <C-r> :LeaderfFile /root/work/tensorflow<CR>
+nmap <C-r> :LeaderfFile PROJECT_ROOT_DIR<CR>
 
 let g:Lf_WildIgnore = {
             \ 'dir': ['.svn','.git','.hg','build'],
