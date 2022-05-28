@@ -20,7 +20,7 @@ RUN apt-get install libncurses5-dev libgtk2.0-dev libatk1.0-dev libcairo2-dev \
 
 ENV proxy="http://192.168.99.11:7890"
 ENV http_proxy=$proxy
-ENV http_proxy=$proxy
+ENV http_proxys=$proxy
 
 WORKDIR /root
 RUN git clone https://github.com/vim/vim.git
