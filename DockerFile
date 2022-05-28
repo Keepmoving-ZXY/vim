@@ -1,0 +1,83 @@
+from ubuntu:18.04
+
+RUN rm -rf /etc/apt/sources.list
+RUN touch /etc/apt/sources.list
+RUN echo "deb http://mirrors.163.com/ubuntu/ bionic main restricted universe multiverse" >> /etc/apt/sources.list && \
+    echo "deb http://mirrors.163.com/ubuntu/ bionic-security main restricted universe multiverse" >> /etc/apt/sources.list && \
+    echo "deb http://mirrors.163.com/ubuntu/ bionic-updates main restricted universe multiverse" >> /etc/apt/sources.list && \
+    echo "deb http://mirrors.163.com/ubuntu/ bionic-proposed main restricted universe multiverse" >> /etc/apt/sources.list && \
+    echo "deb http://mirrors.163.com/ubuntu/ bionic-backports main restricted universe multiverse" >> /etc/apt/sources.list && \
+    echo "deb-src http://mirrors.163.com/ubuntu/ bionic main restricted universe multiverse" >> /etc/apt/sources.list && \
+    echo "deb-src http://mirrors.163.com/ubuntu/ bionic-security main restricted universe multiverse" >> /etc/apt/sources.list && \
+    echo "deb-src http://mirrors.163.com/ubuntu/ bionic-updates main restricted universe multiverse" >> /etc/apt/sources.list && \
+    echo "deb-src http://mirrors.163.com/ubuntu/ bionic-proposed main restricted universe multiverse" >> /etc/apt/sources.list && \
+    echo "deb-src http://mirrors.163.com/ubuntu/ bionic-backports main restricted universe multiverse" >> /etc/apt/sources.list
+
+RUN apt-get update
+RUN apt-get install libncurses5-dev libgtk2.0-dev libatk1.0-dev libcairo2-dev \
+    libx11-dev libxpm-dev libxt-dev python-dev python3-dev ruby-dev lua5.2 \
+    liblua5.2-dev libperl-dev git -y
+
+ENV proxy="http://192.168.99.11:7890"
+ENV http_proxy=$proxy
+ENV http_proxy=$proxy
+
+WORKDIR /root
+RUN git clone https://github.com/vim/vim.git
+WORKDIR vim
+RUN ./configure --with-features=huge \
+            	--enable-multibyte \
+            	--enable-rubyinterp=yes \
+            	--enable-python3interp=yes \
+            	--with-python3-config-dir=$(python3-config --configdir) \
+            	--enable-perlinterp=yes \
+            	--enable-luainterp=yes \
+            	--enable-gui=gtk2 \
+            	--enable-cscope
+RUN make 
+RUN make install
+RUN rm -rf /root/vim
+
+RUN curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+	    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+ENV proxy="http://192.168.99.11:7890"
+ENV http_proxy=$proxy
+ENV https_proxy=$proxy
+
+RUN git clone https://github.com/NLKNguyen/papercolor-theme.git
+RUN cp papercolor-theme/colors ~/.vim/ -r
+RUN git clone https://github.com/NLKNguyen/c-syntax.vim
+RUN cp c-syntax.vim/after ~/.vim -r
+
+WORKDIR /tmp/
+RUN git clone https://github.com/universal-ctags/ctags.git
+WORKDIR ctags
+RUN sh autogen.sh
+RUN ./configure
+RUN make 
+RUN make install
+
+WORKDIR /tmp/
+RUN git clone https://github.com/Keepmoving-ZXY/vim.git
+RUN cp vim/.vimrc /root/
+RUN cp vim/.ycm_extra_conf.py /root/
+
+RUN vim -c PlugInstall -c q -c q
+RUN rm -rf /root/vim
+RUN rm -rf /tmp/*
+
+WORKDIR /tmp/
+RUN apt-get install wget -y
+RUN wget https://github.com/Kitware/CMake/releases/download/v3.23.2/cmake-3.23.2-linux-x86_64.tar.gz
+RUN tar -C /usr/local/ -zxvf cmake-3.23.2-linux-x86_64.tar.gz
+RUN ln -s /usr/local/cmake-3.23.2-linux-x86_64/bin/cmake /usr/bin/cmake
+RUN cmake --version
+
+RUN apt-get install gcc-8 g++-8 -y
+RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 700 --slave /usr/bin/g++ g++ /usr/bin/g++-7
+RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 800 --slave /usr/bin/g++ g++ /usr/bin/g++-8
+WORKDIR /root/.vim/autoload/YouCompleteMe/
+RUN python3 install.py --clang-completer
+
+WORKDIR /root
