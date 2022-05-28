@@ -64,9 +64,6 @@ RUN cp vim/.vimrc /root/
 RUN cp vim/.ycm_extra_conf.py /root/
 
 RUN vim -c PlugInstall -c q -c q
-RUN rm -rf /root/vim
-RUN rm -rf /tmp/*
-
 WORKDIR /tmp/
 RUN apt-get install wget -y
 RUN wget https://github.com/Kitware/CMake/releases/download/v3.23.2/cmake-3.23.2-linux-x86_64.tar.gz
@@ -79,5 +76,12 @@ RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 700 --slave /u
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 800 --slave /usr/bin/g++ g++ /usr/bin/g++-8
 WORKDIR /root/.vim/autoload/YouCompleteMe/
 RUN python3 install.py --clang-completer
+
+RUN apt-get install zsh -y
+RUN sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
+RUN cp /tmp/vim/gentoo-simple.zsh-theme /root/.oh-my-zsh/themes/
+
+RUN rm -rf /root/vim
+RUN rm -rf /tmp/*
 
 WORKDIR /root
