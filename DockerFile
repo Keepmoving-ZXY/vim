@@ -41,10 +41,6 @@ RUN rm -rf /root/vim
 RUN curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 	    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-ENV proxy="http://192.168.99.11:7890"
-ENV http_proxy=$proxy
-ENV https_proxy=$proxy
-
 RUN git clone https://github.com/NLKNguyen/papercolor-theme.git
 RUN cp papercolor-theme/colors ~/.vim/ -r
 RUN git clone https://github.com/NLKNguyen/c-syntax.vim
