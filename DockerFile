@@ -75,6 +75,7 @@ RUN cp /tmp/vim/gentoo-simple.zsh-theme /root/.oh-my-zsh/themes/
 
 RUN apt-get remove git -y
 RUN apt-get install clang-format
+RUN clang-format -style=llvm -dump-config > ~/.clang-format
 RUN rm -rf /root/vim
 RUN rm -rf /tmp/*
 
