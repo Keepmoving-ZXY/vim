@@ -63,9 +63,7 @@ RUN tar -C /usr/local/ -zxvf cmake-3.23.2-linux-x86_64.tar.gz
 RUN ln -s /usr/local/cmake-3.23.2-linux-x86_64/bin/cmake /usr/bin/cmake
 RUN cmake --version
 
-RUN apt-get install gcc-8 g++-8 -y
-RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 700 --slave /usr/bin/g++ g++ /usr/bin/g++-7
-RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 800 --slave /usr/bin/g++ g++ /usr/bin/g++-8
+RUN apt-get install gcc g++ -y
 WORKDIR /root/.vim/autoload/YouCompleteMe/
 RUN python3 install.py --clang-completer --force-sudo
 
