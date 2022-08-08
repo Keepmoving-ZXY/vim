@@ -26,6 +26,7 @@ set wrap
 set autoindent
 set nohlsearch
 set nofoldenable
+set directory=~/.cache/vim
 
 nmap <C-i> :vsp<CR><C-w>l<leader>f
 nmap <C-t> :tabedit<CR>
