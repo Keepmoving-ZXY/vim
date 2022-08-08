@@ -1,39 +1,36 @@
 from ubuntu:20.04
 
-RUN rm -rf /etc/apt/sources.list
-RUN touch /etc/apt/sources.list
-RUN echo "deb http://mirrors.163.com/ubuntu/ bionic main restricted universe multiverse" >> /etc/apt/sources.list && \
-    echo "deb http://mirrors.163.com/ubuntu/ bionic-security main restricted universe multiverse" >> /etc/apt/sources.list && \
-    echo "deb http://mirrors.163.com/ubuntu/ bionic-updates main restricted universe multiverse" >> /etc/apt/sources.list && \
-    echo "deb http://mirrors.163.com/ubuntu/ bionic-proposed main restricted universe multiverse" >> /etc/apt/sources.list && \
-    echo "deb http://mirrors.163.com/ubuntu/ bionic-backports main restricted universe multiverse" >> /etc/apt/sources.list && \
-    echo "deb-src http://mirrors.163.com/ubuntu/ bionic main restricted universe multiverse" >> /etc/apt/sources.list && \
-    echo "deb-src http://mirrors.163.com/ubuntu/ bionic-security main restricted universe multiverse" >> /etc/apt/sources.list && \
-    echo "deb-src http://mirrors.163.com/ubuntu/ bionic-updates main restricted universe multiverse" >> /etc/apt/sources.list && \
-    echo "deb-src http://mirrors.163.com/ubuntu/ bionic-proposed main restricted universe multiverse" >> /etc/apt/sources.list && \
-    echo "deb-src http://mirrors.163.com/ubuntu/ bionic-backports main restricted universe multiverse" >> /etc/apt/sources.list
+# RUN rm -rf /etc/apt/sources.list
+# RUN touch /etc/apt/sources.list
+# RUN echo "deb http://mirrors.163.com/ubuntu/ bionic main restricted universe multiverse" >> /etc/apt/sources.list && \
+#     echo "deb http://mirrors.163.com/ubuntu/ bionic-security main restricted universe multiverse" >> /etc/apt/sources.list && \
+#     echo "deb http://mirrors.163.com/ubuntu/ bionic-updates main restricted universe multiverse" >> /etc/apt/sources.list && \
+#     echo "deb http://mirrors.163.com/ubuntu/ bionic-proposed main restricted universe multiverse" >> /etc/apt/sources.list && \
+#     echo "deb http://mirrors.163.com/ubuntu/ bionic-backports main restricted universe multiverse" >> /etc/apt/sources.list && \
+#     echo "deb-src http://mirrors.163.com/ubuntu/ bionic main restricted universe multiverse" >> /etc/apt/sources.list && \
+#     echo "deb-src http://mirrors.163.com/ubuntu/ bionic-security main restricted universe multiverse" >> /etc/apt/sources.list && \
+#     echo "deb-src http://mirrors.163.com/ubuntu/ bionic-updates main restricted universe multiverse" >> /etc/apt/sources.list && \
+#     echo "deb-src http://mirrors.163.com/ubuntu/ bionic-proposed main restricted universe multiverse" >> /etc/apt/sources.list && \
+#     echo "deb-src http://mirrors.163.com/ubuntu/ bionic-backports main restricted universe multiverse" >> /etc/apt/sources.list
+ENV TZ=Asia/Shanghai
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt-get update
-RUN apt-get install libncurses5-dev libgtk2.0-dev libatk1.0-dev libcairo2-dev \
-    libx11-dev libxpm-dev libxt-dev python-dev python3-dev ruby-dev lua5.2 \
-    liblua5.2-dev libperl-dev git -y
+RUN apt-get install libncurses5-dev python-dev python3-dev git gcc g++ make cmake -y
 
 WORKDIR /root
 RUN git clone https://github.com/vim/vim.git
 WORKDIR vim
 RUN ./configure --with-features=huge \
             	--enable-multibyte \
-            	--enable-rubyinterp=yes \
             	--enable-python3interp=yes \
             	--with-python3-config-dir=$(python3-config --configdir) \
-            	--enable-perlinterp=yes \
-            	--enable-luainterp=yes \
-            	--enable-gui=gtk2 \
             	--enable-cscope
 RUN make 
 RUN make install
 RUN rm -rf /root/vim
 
+RUN apt-get install curl -y
 RUN curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 	    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
@@ -42,6 +39,7 @@ RUN cp papercolor-theme/colors ~/.vim/ -r
 RUN git clone https://github.com/NLKNguyen/c-syntax.vim
 RUN cp c-syntax.vim/after ~/.vim -r
 
+RUN apt-get install automake pkg-config -y
 WORKDIR /tmp/
 RUN git clone https://github.com/universal-ctags/ctags.git
 WORKDIR ctags
@@ -58,6 +56,7 @@ RUN cp vim/.ycm_extra_conf.py /root/
 RUN vim -c PlugInstall -c q -c q
 WORKDIR /tmp/
 RUN apt-get install wget -y
+RUN apt-get remove cmake -y
 RUN wget https://github.com/Kitware/CMake/releases/download/v3.23.2/cmake-3.23.2-linux-x86_64.tar.gz
 RUN tar -C /usr/local/ -zxvf cmake-3.23.2-linux-x86_64.tar.gz
 RUN ln -s /usr/local/cmake-3.23.2-linux-x86_64/bin/cmake /usr/bin/cmake
