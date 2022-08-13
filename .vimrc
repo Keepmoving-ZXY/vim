@@ -13,7 +13,7 @@ set autochdir
 set nocompatible    " Use Vim defaults (much better!)
 set background=dark
 set viminfo='20,\"50    " read/write a .viminfo file, don't store more
-colorscheme PaperColor 
+colorscheme PaperColor
 set bs=indent,eol,start     " allow backspacing over everything in insert mode
 set statusline=[%F]\ [%{&ff}]
 
@@ -21,6 +21,7 @@ set laststatus=2
 set expandtab
 set shiftwidth=2
 set softtabstop=2
+set tabstop=2
 
 set wrap
 set autoindent
@@ -28,13 +29,13 @@ set nohlsearch
 set nofoldenable
 set directory=~/.cache/vim
 
-nmap <C-i> :vsp<CR><C-w>l<leader>f
+nmap <F8> :!sh /work/scripts/sync.sh<CR><CR>
 nmap <C-t> :tabedit<CR>
 nmap <C-n> :tabn<CR>
 nmap <C-p> :tabp<CR>
 
 "
-" this will lead to vim too slow 
+" this will lead to vim too slow
 "
 " set foldmethod=syntax
 
@@ -103,7 +104,7 @@ let g:NERDTreeDirArrowCollapsible = '*'
 set completeopt=longest,menu
 let g:ycm_collect_identifiers_from_tags_files=1
 let g:ycm_show_diagnostics_ui=0
-let g:ycm_min_num_of_chars_for_completion=3 
+let g:ycm_min_num_of_chars_for_completion=3
 let g:ycm_complete_in_strings = 1
 let g:ycm_key_invoke_completion = '<C-p>'
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
@@ -121,10 +122,9 @@ let g:ycm_warning_symbol = '>>'
 nmap <F4> :YcmDiags<CR>
 
 "leaderf"
-nmap <leader>f :LeaderfFile<CR>
+nmap <leader>f :LeaderfFile /work/primihub/<CR>
 nmap <C-f> :LeaderfFunction<CR>
 nmap <C-l> :LeaderfLine<CR>
-nmap <C-r> :LeaderfFile PROJECT_ROOT_DIR<CR>
 
 let g:Lf_WildIgnore = {
             \ 'dir': ['.svn','.git','.hg','build'],
@@ -134,7 +134,7 @@ let g:Lf_WildIgnore = {
 "vim-gutentags"
 let g:gutentags_ctags_tagfile = '.tags'
 let g:gutentags_project_root = ['.root', '.svn', '.git']
-   
+
 let s:vim_tags = expand('~/.cache/tags')
 let g:gutentags_cache_dir = s:vim_tags
 let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
@@ -145,9 +145,9 @@ map <C-g> <C-]>
 
 "vim autoformat"
 " ensure that you have installed clang-format and auto-pep8
-noremap <F4> :Autoformat<CR>                                                       
-let g:autoformat_autoindent = 0                                                    
-let g:autoformat_retab = 0                                                         
+noremap <F4> :Autoformat<CR>
+let g:autoformat_autoindent = 0
+let g:autoformat_retab = 0
 let g:autoformat_remove_trailing_spaces = 0
 
 call plug#end()
