@@ -71,6 +71,7 @@ RUN sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh
 RUN cp /tmp/vim/gentoo-simple.zsh-theme /root/.oh-my-zsh/themes/
 
 RUN apt-get install clang-format -y
+RUN apt-get install rsync -y
 RUN clang-format -style=llvm -dump-config > ~/.clang-format
 RUN rm -rf /root/vim
 RUN rm -rf /tmp/*
