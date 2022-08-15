@@ -30,6 +30,7 @@ set nofoldenable
 set directory=~/.cache/vim
 
 nmap <F8> :!sh /work/scripts/sync.sh<CR><CR>
+nmap <C-i> :vsp<CR><C-w>l<leader>f
 nmap <C-t> :tabedit<CR>
 nmap <C-n> :tabn<CR>
 nmap <C-p> :tabp<CR>
